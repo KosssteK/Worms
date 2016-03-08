@@ -10,3 +10,9 @@ LIBGDX
   - scoreboard
 3. Sockety
   - multi klient serwer
+4. Watki
+  - rozdzielenie rysowania i liczenia na oddzielne watki
+5. Bazy danych
+  - tworzenie konta
+  - logowanie do bazy danych
+6. Generator map albo  
