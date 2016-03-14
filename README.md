@@ -2,9 +2,11 @@
 LIBGDX
 
 1. Okienka
+  - okno z gra
   - wczytywanie grafik
   - wyswietlanie HUD
   - sprite i mapy
+  - mechanika poruszania
 2. Zapis i Odczyt
   - mozliwosc zapisu i odczytu z pliku statystyk
   - scoreboard
