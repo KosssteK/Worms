@@ -7,11 +7,16 @@ LIBGDX
   - wyswietlanie HUD
   - sprite i mapy
   - mechanika poruszania
+  - grawitacja
+  - mechanika strzelania
 2. Zapis i Odczyt
-  - mozliwosc zapisu i odczytu z pliku statystyk
+  - mozliwosc zapisu mapy
+  - odczytu z pliku mapy
   - scoreboard
 3. Sockety
   - multi klient serwer
+  - szkody
+  - obrazenia
 4. Watki
   - rozdzielenie rysowania i liczenia na oddzielne watki
 5. Bazy danych
