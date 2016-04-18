@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.worms.worms.Scenes.Hud;
 import com.worms.worms.Worms;
 
 /**
@@ -15,14 +16,15 @@ import com.worms.worms.Worms;
  */
 public class PlayScreen implements Screen{
     private Worms game;
-    Texture texture;
+
     private OrthographicCamera gamecam;
     private Viewport gamePort;
+    private Hud hud;
     public PlayScreen(Worms game){
         this.game = game;
-        texture = new Texture("badlogic.jpg");
         gamecam = new OrthographicCamera();
         gamePort = new FitViewport(Worms.V_WIDTH,Worms.V_HEIGHT,gamecam);
+        hud = new Hud(game.batch);
     }
     @Override
     public void show() {
@@ -31,12 +33,10 @@ public class PlayScreen implements Screen{
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1,0,0,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        game.batch.setProjectionMatrix(gamecam.combined);
-        game.batch.begin();
-        game.batch.draw(texture,-100,-100);
-        game.batch.end();
+       // Gdx.gl.glClearColor(1,0,0,1);
+       // Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+      //  game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.draw();
     }
 
     @Override
