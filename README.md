@@ -2,16 +2,16 @@
 LIBGDX
 
 1. Okienka
-  - okno z gra
-  - wczytywanie grafik
-  - wyswietlanie HUD
-  - sprite i mapy
-  - mechanika poruszania
-  - grawitacja
+  - okno z gra (1.03)
+  - wczytywanie grafik(1.03)
+  - wyswietlanie HUD (8.03)
+  - sprite i mapy(8.03)
+  - mechanika poruszania(22.03)
+  - grawitacja(29.03), (12.04)
   - mechanika strzelania
 2. Zapis i Odczyt
-  - mozliwosc zapisu mapy
-  - odczytu z pliku mapy
+  - mozliwosc zapisu mapy (5.04)
+  - odczytu z pliku mapy  (5.04)
   - scoreboard
 3. Sockety
   - multi klient serwer
