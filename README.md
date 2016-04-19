@@ -7,7 +7,7 @@ LIBGDX
   - wyswietlanie HUD (8.03)
   - sprite i mapy(8.03)
   - mechanika poruszania(22.03)
-  - grawitacja(29.03), (12.04)
+  - grawitacja (12.04)
   - mechanika strzelania
 2. Zapis i Odczyt
   - mozliwosc zapisu mapy (5.04)
