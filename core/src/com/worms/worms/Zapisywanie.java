@@ -10,9 +10,9 @@ import java.io.IOException;
  */
 public class Zapisywanie {
 
-    private String lokalizacjaPliku = "D://InteliJ//Worms//core//assets//podklad3.txt";
+    private String lokalizacjaPliku = "D://InteliJ//Worms//core//assets//podklad4.txt";
 
-    public void zapiszPlik(String daneDoWpisania)
+    public void zapiszPlik(int H, int W)
     {
 
         File plik = new File(lokalizacjaPliku);
@@ -22,19 +22,19 @@ public class Zapisywanie {
             BufferedWriter bufforowanyZapis = new BufferedWriter(zapis);
             //bufforowanyZapis.write(daneDoWpisania);
             int licznik = 100;
-            for(int i = 0; i< 600 ; i++)
+            for(int i = 0; i< H ; i++)
             {
-                for(int j = 0; j < 800 ; j++)
+                for(int j = 0; j < W ; j++)
                 {
-                    if(i<199)
+                    if(i<H/5)
                     {
                         bufforowanyZapis.write(49);
                     }
                     else{
-                        if(i<299 && (j<100))
+                        if(i<H/3.5 && (j<W/8))
                         {
                             bufforowanyZapis.write(49);
-                        }else if((i<348 && (j>650)))
+                        }else if((i<H/3 && (j>4*W/5)))
                         {
                             bufforowanyZapis.write(49);
                         }else

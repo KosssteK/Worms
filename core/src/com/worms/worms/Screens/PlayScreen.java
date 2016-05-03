@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -17,18 +18,28 @@ import com.worms.worms.Worms;
 public class PlayScreen implements Screen{
     private Worms game;
 
-    private OrthographicCamera gamecam;
+    public static OrthographicCamera gamecam;
     private Viewport gamePort;
     private Hud hud;
     public PlayScreen(Worms game){
         this.game = game;
         gamecam = new OrthographicCamera();
-        gamePort = new FitViewport(Worms.V_WIDTH,Worms.V_HEIGHT,gamecam);
+        gamePort = new StretchViewport(Worms.V_WIDTH,Worms.V_HEIGHT,gamecam);
         hud = new Hud(game.batch);
     }
+
     @Override
     public void show() {
 
+    }
+    public static Vector3 getMousePosInGameWorld() {
+        return gamecam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
+    }
+    static Vector3 camera()
+    {
+        Vector3 vektor;
+        vektor = getMousePosInGameWorld();
+        return vektor;
     }
 
     @Override

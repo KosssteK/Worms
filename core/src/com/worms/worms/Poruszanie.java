@@ -11,10 +11,10 @@ public class Poruszanie {
         this.gravity=-1;
         this.wylacz=true;
     }
-    public static float skok(float y, float wGore)
+    public static float skok(float y, float wGore, int H)
     {
 //        System.out.print("Skok\n");
-        if(y+wGore < 560) {
+        if(y+wGore < H) {
             y = y + wGore;
             wGore--;
         }else
@@ -23,52 +23,7 @@ public class Poruszanie {
         }
         return y;
     }
-    public static float grawitacja(float y, float wDol,int [][]tab, float x,float wGore)
-    {
-        float licznik = wDol;
 
-////        System.out.print("Grawitacja\n");
-//        if(tab[(int)(y+wDol)][(int)x]!=1 && tab[(int)(y+wDol+1)][(int)x]!=1) //&& tablicaPodklad[(int) (spritePostaci.getY()+1)][(int)spritePostaci.getX()] != 1
-//        {
-//            y=y+wDol;
-//        }else {
-//
-//            if(tab[(int)(y+wDol)][(int)x]==1 && tab[(int)(y+wDol+1)][(int)x]!=1) {
-//            return y;
-//            }else if(tab[(int)(y+wDol)][(int)x]==1 && tab[(int)(y+wDol+1)][(int)x]==1) {
-
-
-
-
-
-
-
-
-
-
-
-
-//            for(int i=0;i<-wDol;i++)
-//            {
-//                System.out.print("Return\n");
-//
-//                if(tab[(int)(y+wDol)][(int)x]==1 && tab[(int)(y+wDol+1)][(int)x]==1)
-//                 {
-//                     wDol=wDol+1;
-//
-//                 }
-//                if(tab[(int)(y)][(int)x]==1 && tab[(int)(y+1)][(int)x]==0)
-//                {
-//                    return y;
-//                }
-           // }
-        //  y=y+wDol;
-        //  }
-        //wczesniejsza funkcja
-        y=y+wDol;
-//      tab[(int)y][(int)x]==1
-        return y;
-    }
     public static float grawitacjav2(float y ,float grawitacja, int [][]tab,float x)
     {
       //  System.out.print(gravity);

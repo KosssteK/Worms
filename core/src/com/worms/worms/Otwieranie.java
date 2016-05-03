@@ -7,14 +7,14 @@ import java.io.*;
  */
 public class Otwieranie {
 
-    private String lokalizacjaPliku = "D://InteliJ//Worms//core//assets//podklad3.txt";
+    private String lokalizacjaPliku = "D://InteliJ//Worms//core//assets//podklad4.txt";
 
-    public void otworzPlik(char [][] tab){
+    public void otworzPlik(char [][] tab, int H,int W){
         File plik = new File(lokalizacjaPliku);
         try {
             FileReader odczyt = new FileReader(lokalizacjaPliku);
             BufferedReader buffOdczyt = new BufferedReader(odczyt);
-            for(int i = 0; i<600;i++)
+            for(int i = 0; i<H;i++)
             {
                     buffOdczyt.read(tab[i]);
             }
@@ -40,11 +40,11 @@ public class Otwieranie {
             System.out.print("\n");
         }
     }
-    public static void zamien(char[][]tab1,int [][]tab2)
+    public static void zamien(char[][]tab1,int [][]tab2, int H,int W)
     {
-        for(int i =0; i < 600;i++)
+        for(int i =0; i < H;i++)
         {
-            for(int j =0; j < 800;j++) {
+            for(int j =0; j < W;j++) {
                 tab2[i][j] = (int) tab1[i][j] -48;
                // System.out.print(tab1[i][j] + " ");
             }

@@ -1,5 +1,8 @@
 package com.worms.worms;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector3;
+
 /**
  * Created by Wojciech on 2016-04-12.
  */
