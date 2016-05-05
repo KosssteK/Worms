@@ -26,40 +26,38 @@ public class Poruszanie {
 
     public static float grawitacjav2(float y ,float grawitacja, int [][]tab,float x)
     {
-      //  System.out.print(gravity);
+       // System.out.print(y + "   " + x+ "\n");
+        if(y<20)
+        {
+            System.out.print("smierc \n");
 
-        if(tab[(int)y][(int)x]==0 && tab[(int)(y-1)][(int)x]==1)
-        {
-            gravity=-1;
-        }else if(tab[(int)y][(int)x]==0 && tab[(int)(y-1)][(int)x]==0 && tab[(int)(y+gravity)][(int)x]==0)
-        {
-            y=y+gravity;
-            gravity--;
-        }else if(tab[(int)y][(int)x]==0 && tab[(int)(y-1)][(int)x]==0 && tab[(int)(y+gravity)][(int)x]==1)
-        {
-            float delta = -gravity;
-            if(delta %2 ==1)
-            {
-                delta += 1;
-            }
-            System.out.print("----" + -gravity + "   " + delta + "\n");
-            for (int  i = 0; i < -gravity; i++)
-            {
-                if(tab[(int)(y-delta)][(int)x]==0 && tab[(int)(y-delta-1)][(int)x]==1)
-                {
-                    y=y-delta;
-                    wylacz = true;
-                    return y;
+            return y;
+        }else {
+                if (tab[(int) y][(int) x] == 0 && tab[(int) (y - 1)][(int) x] == 1) {
+                    gravity = -1;
+                } else if (tab[(int) y][(int) x] == 0 && tab[(int) (y - 1)][(int) x] == 0 && tab[(int) (y + gravity)][(int) x] == 0) {
+                    y = y + gravity;
+                    gravity--;
+                } else if (tab[(int) y][(int) x] == 0 && tab[(int) (y - 1)][(int) x] == 0 && tab[(int) (y + gravity)][(int) x] == 1) {
+                    float delta = -gravity;
+                    if (delta % 2 == 1) {
+                        delta += 1;
+                    }
+                    // System.out.print("----" + -gravity + "   " + delta + "\n");
+                    for (int i = 0; i < -gravity; i++) {
+                        if (tab[(int) (y - delta)][(int) x] == 0 && tab[(int) (y - delta - 1)][(int) x] == 1) {
+                            y = y - delta;
+                            wylacz = true;
+                            return y;
+
+                        }
+                        delta--;
+                    }
+                } else {
+                    System.out.print("sdss" + "\n");
 
                 }
-                delta--;
-            }
-        }else
-        {
-            System.out.print("sdss");
-
         }
-
         return y;
     }
     public static void strzelanie(Mysz B, float x, float y)

@@ -11,7 +11,7 @@ import java.io.IOException;
 public class Zapisywanie {
 
     private String lokalizacjaPliku = "D://InteliJ//Worms//core//assets//podklad4.txt";
-
+    public static String lokalizacjaPliku1 = "D://InteliJ//Worms//core//assets//zapisanaMapa.txt";
     public void zapiszPlik(int H, int W)
     {
 
@@ -20,8 +20,7 @@ public class Zapisywanie {
 
             FileWriter zapis = new FileWriter(plik);
             BufferedWriter bufforowanyZapis = new BufferedWriter(zapis);
-            //bufforowanyZapis.write(daneDoWpisania);
-            int licznik = 100;
+
             for(int i = 0; i< H ; i++)
             {
                 for(int j = 0; j < W ; j++)
@@ -44,19 +43,9 @@ public class Zapisywanie {
                     }
 
 
-//                    if(j<licznik)
-//                    {
-//                        bufforowanyZapis.write(49);
-//                    }else
-//                    {
-//                        bufforowanyZapis.write(48);
-//                    }
-//                    //bufforowanyZapis.write(4);
-
-
 
                 }
-                licznik++;
+
             }
             bufforowanyZapis.close();
             zapis.close();
@@ -66,4 +55,52 @@ public class Zapisywanie {
         }
 
     }
+    public static void zapiszMape(int [][]tab, int H, int W)
+    {
+
+        File plik = new File(lokalizacjaPliku1);
+        try {
+
+            FileWriter zapis = new FileWriter(plik);
+            BufferedWriter bufforowanyZapis = new BufferedWriter(zapis);
+
+            for(int i = 0; i< H ; i++)
+            {
+                for(int j = 0; j < W ; j++)
+                {
+                        bufforowanyZapis.write(tab[i][j]+48);
+                }
+            }
+            bufforowanyZapis.close();
+            zapis.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public static void miejscePoWybuchu(int [][] tab, int H,int W, int X, int Y)
+    {
+        int R = 75;
+        double y1,y2;
+        double x;
+
+        for(int i = -75; i < 75; i++)
+        {
+            y1 = Math.sqrt(R*R - i*i);
+            y2 = -y1+Y+10;
+            y1 = y1+Y+10;
+            x = i + X;
+            for(int j = (int)y2; j<y1; j++)
+            {
+                if(j>0 && x<W-1 && x>0 && j<H-1)
+                {
+                    tab[(int) j][(int) x] = 0;
+                   // System.out.print("f\n");
+                }
+            }
+        }
+    }
+
+
 }

@@ -37,7 +37,7 @@ public class Otwieranie {
             {
                 System.out.print(tab[i][j] + " ");
             }
-            System.out.print("\n");
+            //System.out.print("\n");
         }
     }
     public static void zamien(char[][]tab1,int [][]tab2, int H,int W)
