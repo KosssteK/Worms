@@ -1,4 +1,5 @@
 LIBGDX
+
 1.	Okienka
     o	okno z gra (1.03)
     o	wczytywanie grafik(1.03)
