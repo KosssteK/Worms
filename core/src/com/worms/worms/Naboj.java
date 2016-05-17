@@ -68,20 +68,4 @@ public class Naboj {
         {return false;}
 
     }
-    //
-//		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-//			just = true;
-//			System.out.print("JustPressed" + "\n");
-//		}
-//
-//		if(just && Gdx.input.isKeyPressed(Input.Keys.SPACE) )
-//		{
-//			sila = sila +0.3;
-//			//System.out.print(sila + "\n");
-//		}else if( just && !Gdx.input.isKeyPressed(Input.Keys.SPACE))
-//		{
-//			just = false;
-//			buttonReleased = true;
-//			System.out.print("released"+ "\n");
-//		}
 }

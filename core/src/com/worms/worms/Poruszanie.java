@@ -33,12 +33,12 @@ public class Poruszanie {
 
             return y;
         }else {
-                if (tab[(int) y][(int) x] == 0 && tab[(int) (y - 1)][(int) x] == 1) {
+                if (tab[(int) y][(int) x] == 0 && tab[(int) (y - 1)][(int) x] == 1) {  //normalne stanie na ziemi
                     gravity = -1;
-                } else if (tab[(int) y][(int) x] == 0 && tab[(int) (y - 1)][(int) x] == 0 && tab[(int) (y + gravity)][(int) x] == 0) {
+                } else if (tab[(int) y][(int) x] == 0 && tab[(int) (y - 1)][(int) x] == 0 && tab[(int) (y + gravity)][(int) x] == 0) {    //kiedy jest sie w powietrzu i roznica tez wypada w powietrzu
                     y = y + gravity;
                     gravity--;
-                } else if (tab[(int) y][(int) x] == 0 && tab[(int) (y - 1)][(int) x] == 0 && tab[(int) (y + gravity)][(int) x] == 1) {
+                } else if (tab[(int) y][(int) x] == 0 && tab[(int) (y - 1)][(int) x] == 0 && tab[(int) (y + gravity)][(int) x] == 1) {    // kiedy jest siew powietrzu ale laduje sie w ziemi
                     float delta = -gravity;
                     if (delta % 2 == 1) {
                         delta += 1;

@@ -52,7 +52,7 @@ public class Worms extends Game {
 	private Texture teksturaDziury;
 	private Sprite spriteDziury;
 
-
+	float poprzedniX, poprzedniY;
 
 
 	float skok = 20;
@@ -108,6 +108,9 @@ public class Worms extends Game {
 		spritePostaci = new Sprite(teksturaPostaci);
 		spritePostaci.setPosition(3*V_WIDTH/4,V_HEIGHT/2);
 
+
+
+
 		poczatek = spritePostaci.getY();
 		teksturaPodkladu = new Texture(Gdx.files.internal("podklad.png"));
 		spritePodkladu = new Sprite(teksturaPodkladu);
@@ -137,12 +140,11 @@ public class Worms extends Game {
 
 
 //==============================================   sokety   ================================================
-		try {
-			sck = new Socket("localhost", 1337);
-		}catch(Exception e ){
 
-		}
-			Scanner sc1;
+
+		KnockKnockClient C = new KnockKnockClient();
+		Thread watek = new Thread(C);
+		watek.start();
 
 
 
@@ -162,7 +164,7 @@ public class Worms extends Game {
 			if(tablicaPodklad[(int)( spritePostaci.getY()+20)][(int)spritePostaci.getX()-speed] !=1) {
 				spritePostaci.translateX(-speed);
 
-			}else  if(tablicaPodklad[(int)( spritePostaci.getY()+2)][(int)spritePostaci.getX()-1] !=1)
+			}else  if(tablicaPodklad[(int)( spritePostaci.getY()+2)][(int)spritePostaci.getX()-speed] !=1)
 			{
 				spritePostaci.translateX(-speed/2);
 				spritePostaci.translateY(speed/2);
@@ -178,6 +180,7 @@ public class Worms extends Game {
 				spritePostaci.translateY(speed/2);
 			}
         }
+
 //        if( Gdx.input.isKeyPressed(Input.Keys.S) && spritePostaci.getY() > 0){
 //            spritePostaci.translateY(-10.0f);
 //        }
@@ -199,6 +202,7 @@ public class Worms extends Game {
 
 				//System.out.print("JustPressed" + "\n");
 			}
+
 			if (just && Gdx.input.isButtonPressed(Input.Buttons.LEFT) && sila < 16) {
 				sila = sila + 0.3;
 				//System.out.print(sila + "\n");
@@ -304,10 +308,12 @@ public class Worms extends Game {
 		}
 
 		//System.out.print(tablicaPodklad[(int)(spritePostaci.getY())][(int)spritePostaci.getX()]+"    " + tablicaPodklad[(int)(spritePostaci.getY()-1)][(int)spritePostaci.getX()]  + "    " + gravity +"\n");
-		//System.out.print(spritePostaci.getY()+ "   " + spritePostaci.getX() + "\n");
-//		System.out.print("\n");
-//		System.out.print(B.X + "    " + B.Y + "\n");
-		//System.out.print(listaNaboi.get(0).x + "    " + listaNaboi.get(0).y + "\n");
+
+
+
+
+
+
 		batch.begin();
 
 		sprite.draw(batch);
@@ -317,6 +323,9 @@ public class Worms extends Game {
 
 
 		batch.end();
+
+
+
 		super.render();
 	}
 }
