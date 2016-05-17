@@ -1,25 +1,24 @@
-# Worms
 LIBGDX
+1.	Okienka
+    o	okno z gra (1.03)
+    o	wczytywanie grafik(1.03)
+    o	wyswietlanie HUD (8.03)
+    o	sprite i mapy(8.03)
+2.	Zapis i Odczyt
+    o	mozliwosc zapisu mapy (5.04)
+    o	odczytu z pliku mapy (5.04)
+    o	scoreboard(17.05)
+3.	Sockety
+    o	multi klient serwer(17.05)
+    o	szkody(26.04)
+    o	obrazenia
+4.	Watki
+    o	rozdzielenie liczenia i wysylania na oddzielne watki (10.05)
+5.	Bazy danych
+    o	tworzenie konta
+    o	logowanie do bazy danych	
+6.	Wlasne funkcje: 
+    o	mechanika poruszania(22.03)
+    o	grawitacja (12.04)
+    o	mechanika strzelania (10.05)
 
-1. Okienka
-  - okno z gra (1.03)
-  - wczytywanie grafik(1.03)
-  - wyswietlanie HUD (8.03)
-  - sprite i mapy(8.03)
-  - mechanika poruszania(22.03)
-  - grawitacja (12.04)
-  - mechanika strzelania
-2. Zapis i Odczyt
-  - mozliwosc zapisu mapy (5.04)
-  - odczytu z pliku mapy  (5.04)
-  - scoreboard
-3. Sockety
-  - multi klient serwer
-  - szkody
-  - obrazenia
-4. Watki
-  - rozdzielenie rysowania i liczenia na oddzielne watki
-5. Bazy danych
-  - tworzenie konta
-  - logowanie do bazy danych
-6. Generator map albo  
