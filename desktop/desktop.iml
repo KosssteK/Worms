@@ -32,5 +32,6 @@
     <orderEntry type="library" name="Gradle: net.java.jinput:jinput-platform:2.0.5:natives-linux" level="project" />
     <orderEntry type="library" name="Gradle: net.java.jinput:jinput-platform:2.0.5:natives-windows" level="project" />
     <orderEntry type="library" name="Gradle: net.java.jinput:jinput-platform:2.0.5:natives-osx" level="project" />
+    <orderEntry type="library" name="mysql-connector-java-5.1.39-bin2" level="project" />
   </component>
 </module>

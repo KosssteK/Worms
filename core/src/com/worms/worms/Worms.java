@@ -7,13 +7,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
-import com.sun.java_cup.internal.runtime.Scanner;
+//import com.sun.java_cup.internal.runtime.Scanner;
 import com.worms.worms.Screens.PlayScreen;
 import java.net.Socket;
 
 import java.util.LinkedList;
 import java.util.List;
-
+import java.util.Scanner;
 import static com.worms.worms.Naboj.obliczStosunek;
 import static com.worms.worms.Naboj.poruszanie;
 import static com.worms.worms.Naboj.usun;
@@ -69,7 +69,7 @@ public class Worms extends Game {
 	int licznikLeft = 0;
 	boolean masywnyWlacznikCalegoJust = true;
 
-
+	boolean poczatekGry = false;
 
 	Poruszanie A;
 	Mysz B;
@@ -79,6 +79,10 @@ public class Worms extends Game {
 	boolean wlacz = false;
 	boolean wylacz = true;
 	boolean wlaczGrawitacje = true;
+
+	char logowanieCzyRejestracja;
+
+
 
 
 	int [][] tablicaPodklad = new int[V_HEIGHT][V_WIDTH];
@@ -144,9 +148,40 @@ public class Worms extends Game {
 
 		KnockKnockClient C = new KnockKnockClient();
 		Thread watek = new Thread(C);
-		watek.start();
+		//watek.start();
+		DBConnect connect = new DBConnect();
 
 
+
+
+		while(!poczatekGry) {
+			System.out.print("Logowanie (1) - Rejestracja (2)" + "\n");
+			Scanner input = new Scanner(System.in);
+			String text = input.nextLine();
+			//System.out.print(text);
+			int liczba = Integer.parseInt(text);
+
+			if (liczba == 1) {
+				System.out.print("Logowanie!" + "\n");
+				System.out.print("Podaj login: " + "\n");
+				String login = input.nextLine();
+				System.out.print("Podaj haslo: " + "\n");
+				String haslo = input.nextLine();
+//				int liczba1 = Integer.parseInt(login);
+//				int liczba2 = Integer.parseInt(haslo);
+//				login = Integer.toString(liczba1);
+//				haslo = Integer.toString(liczba2);
+				connect.logowanie(login, haslo);
+
+			} else {
+				System.out.print("Rejestracja" + "\n");
+				poczatekGry = true;
+			}
+
+		}
+
+		//connect.getData();
+		//connect.registration("123","123","d");
 
 	}
 	@Override
