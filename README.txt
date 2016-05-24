@@ -16,8 +16,8 @@ LIBGDX
 4.	Watki
     o	rozdzielenie liczenia i wysylania na oddzielne watki (10.05)
 5.	Bazy danych
-    o	tworzenie konta
-    o	logowanie do bazy danych	
+    o	tworzenie konta (24.05)
+    o	logowanie do bazy danych (24.05)	
 6.	Wlasne funkcje: 
     o	mechanika poruszania(22.03)
     o	grawitacja (12.04)
