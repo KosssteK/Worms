@@ -6,10 +6,12 @@ package com.worms.worms;
 public class Poruszanie {
     public static float gravity;
     public static boolean wylacz;
+    public static boolean smierc;
     public Poruszanie()
     {
         this.gravity=-1;
         this.wylacz=true;
+        this.smierc = true;
     }
     public static float skok(float y, float wGore, int H)
     {
@@ -30,7 +32,7 @@ public class Poruszanie {
         if(y<20)
         {
             System.out.print("smierc \n");
-
+            smierc = true;
             return y;
         }else {
                 if (tab[(int) y][(int) x] == 0 && tab[(int) (y - 1)][(int) x] == 1) {  //normalne stanie na ziemi

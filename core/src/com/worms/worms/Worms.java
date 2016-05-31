@@ -23,6 +23,7 @@ import static com.worms.worms.Poruszanie.grawitacjav2;
 import static com.worms.worms.Poruszanie.skok;
 
 import static com.worms.worms.Mysz.mouseButtonReleased;
+import static com.worms.worms.Poruszanie.smierc;
 import static com.worms.worms.Zapisywanie.miejscePoWybuchu;
 import static com.worms.worms.Zapisywanie.zapiszMape;
 
@@ -52,6 +53,12 @@ public class Worms extends Game {
 	private Texture teksturaDziury;
 	private Sprite spriteDziury;
 
+	private Texture teksturaMenu;
+	private Sprite spriteMenu;
+
+	private Texture teksturaKoniec;
+	private Sprite spriteKoniec;
+
 	float poprzedniX, poprzedniY;
 
 
@@ -70,6 +77,7 @@ public class Worms extends Game {
 	boolean masywnyWlacznikCalegoJust = true;
 
 	boolean poczatekGry = false;
+	boolean jedenWatek = true;
 
 	Poruszanie A;
 	Mysz B;
@@ -82,7 +90,7 @@ public class Worms extends Game {
 
 	char logowanieCzyRejestracja;
 
-
+	float wlacznikGry = 0;
 
 
 	int [][] tablicaPodklad = new int[V_HEIGHT][V_WIDTH];
@@ -94,8 +102,17 @@ public class Worms extends Game {
 	List<Naboj> listaNaboi = new LinkedList<Naboj>();
 
 
+	Menu menuGry = new Menu();
+	Thread watekMenu = new Thread(menuGry);
 
+	KnockKnockClient C = new KnockKnockClient();
+	Thread watek = new Thread(C);
 
+	boolean mapaLicznik = true;
+
+	Wynik J = new Wynik();
+
+	//Dane A = new Dane();
 
 
 	@Override
@@ -128,6 +145,12 @@ public class Worms extends Game {
 		spriteDziury.setPosition(-150,-150);
 		//spriteDziury.setCenter((float)75,(float)75);;
 
+		teksturaMenu = new Texture(Gdx.files.internal("menu.png"));
+		spriteMenu = new Sprite(teksturaMenu);
+
+		teksturaKoniec = new Texture(Gdx.files.internal("koniec.png"));
+		spriteKoniec = new Sprite(teksturaKoniec);
+
 
 // ================================================================ zapis i odczyt map  ================================
 
@@ -146,42 +169,15 @@ public class Worms extends Game {
 //==============================================   sokety   ================================================
 
 
-		KnockKnockClient C = new KnockKnockClient();
-		Thread watek = new Thread(C);
-		//watek.start();
-		DBConnect connect = new DBConnect();
 
 
 
+		watekMenu.start();
 
-		while(!poczatekGry) {
-			System.out.print("Logowanie (1) - Rejestracja (2)" + "\n");
-			Scanner input = new Scanner(System.in);
-			String text = input.nextLine();
-			//System.out.print(text);
-			int liczba = Integer.parseInt(text);
 
-			if (liczba == 1) {
-				System.out.print("Logowanie!" + "\n");
-				System.out.print("Podaj login: " + "\n");
-				String login = input.nextLine();
-				System.out.print("Podaj haslo: " + "\n");
-				String haslo = input.nextLine();
-//				int liczba1 = Integer.parseInt(login);
-//				int liczba2 = Integer.parseInt(haslo);
-//				login = Integer.toString(liczba1);
-//				haslo = Integer.toString(liczba2);
-				connect.logowanie(login, haslo);
-
-			} else {
-				System.out.print("Rejestracja" + "\n");
-				poczatekGry = true;
-			}
-
-		}
 
 		//connect.getData();
-		//connect.registration("123","123","d");
+
 
 	}
 	@Override
@@ -194,27 +190,33 @@ public class Worms extends Game {
 	}
 	@Override
 	public void render () {
+		if(menuGry.wlacznikGry==1) {
 
-		if(Gdx.input.isKeyPressed(Input.Keys.A) && spritePostaci.getX() > 0){
-			if(tablicaPodklad[(int)( spritePostaci.getY()+20)][(int)spritePostaci.getX()-speed] !=1) {
-				spritePostaci.translateX(-speed);
-
-			}else  if(tablicaPodklad[(int)( spritePostaci.getY()+2)][(int)spritePostaci.getX()-speed] !=1)
-			{
-				spritePostaci.translateX(-speed/2);
-				spritePostaci.translateY(speed/2);
+			if(menuGry.wlacznikGry==1 && mapaLicznik) {
+				texture = new Texture(Gdx.files.internal("mapa4.png"));
+				sprite = new Sprite(texture);
+				mapaLicznik = false;
 			}
-		}
-		if( Gdx.input.isKeyPressed(Input.Keys.D) && spritePostaci.getX() < V_WIDTH-40-speed ){
-			if( tablicaPodklad[(int)( spritePostaci.getY()+20)][(int)(spritePostaci.getX()+40+speed)] !=1) {
-				spritePostaci.translateX(speed);
 
-			}else  if(tablicaPodklad[(int)( spritePostaci.getY()+2)][(int)spritePostaci.getX()+40+speed] !=1)
-			{
-				spritePostaci.translateX(speed/2);
-				spritePostaci.translateY(speed/2);
+
+			if (Gdx.input.isKeyPressed(Input.Keys.A) && spritePostaci.getX() > 0) {
+				if (tablicaPodklad[(int) (spritePostaci.getY() + 20)][(int) spritePostaci.getX() - speed] != 1) {
+					spritePostaci.translateX(-speed);
+
+				} else if (tablicaPodklad[(int) (spritePostaci.getY() + 2)][(int) spritePostaci.getX() - speed] != 1) {
+					spritePostaci.translateX(-speed / 2);
+					spritePostaci.translateY(speed / 2);
+				}
 			}
-        }
+			if (Gdx.input.isKeyPressed(Input.Keys.D) && spritePostaci.getX() < V_WIDTH - 40 - speed) {
+				if (tablicaPodklad[(int) (spritePostaci.getY() + 20)][(int) (spritePostaci.getX() + 40 + speed)] != 1) {
+					spritePostaci.translateX(speed);
+
+				} else if (tablicaPodklad[(int) (spritePostaci.getY() + 2)][(int) spritePostaci.getX() + 40 + speed] != 1) {
+					spritePostaci.translateX(speed / 2);
+					spritePostaci.translateY(speed / 2);
+				}
+			}
 
 //        if( Gdx.input.isKeyPressed(Input.Keys.S) && spritePostaci.getY() > 0){
 //            spritePostaci.translateY(-10.0f);
@@ -222,145 +224,158 @@ public class Worms extends Game {
 //        if( Gdx.input.isKeyPressed(Input.Keys.W) && spritePostaci.getY() < V_HEIGHT-40){
 //            spritePostaci.translateY(10.0f);
 
-		// =============================================   NABOJE =======================================================================================================
+			// =============================================   NABOJE =======================================================================================================
 
 
+			if (masywnyWlacznikCalegoJust) {
 
 
+				if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && licznikLeft == 0) {
+					licznikLeft++;
+					just = true;
 
-		if(masywnyWlacznikCalegoJust) {
+					//System.out.print("JustPressed" + "\n");
+				}
 
-
-			if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && licznikLeft == 0) {
-				licznikLeft++;
-				just = true;
-
-				//System.out.print("JustPressed" + "\n");
+				if (just && Gdx.input.isButtonPressed(Input.Buttons.LEFT) && sila < 16) {
+					sila = sila + 0.3;
+					//System.out.print(sila + "\n");
+				} else {
+					if (just && Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+						wlaczPocisk = true;
+						//just = false;
+						masywnyWlacznikCalegoJust = false;
+						//buttonReleased = true;
+						//System.out.print("released przetrzymany " + "\n");
+					}
+					if (just && !Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+						wlaczPocisk = true;
+						just = false;
+						masywnyWlacznikCalegoJust = true;
+						//buttonReleased = true;
+						//System.out.print("released let go" + "\n");
+					}
+				}
+			} else if (just && !Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+				//wlaczPocisk = true;
+				just = false;
+				masywnyWlacznikCalegoJust = true;
+				//buttonReleased = true;
+				//System.out.print("released wylacznikowy" + "\n");
 			}
 
-			if (just && Gdx.input.isButtonPressed(Input.Buttons.LEFT) && sila < 16) {
-				sila = sila + 0.3;
-				//System.out.print(sila + "\n");
-			} else {
-				if (just && Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-					wlaczPocisk = true;
-					//just = false;
-					masywnyWlacznikCalegoJust =false;
-					//buttonReleased = true;
-					//System.out.print("released przetrzymany " + "\n");
-				}
-				if (just && !Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-					wlaczPocisk = true;
-					just = false;
-					masywnyWlacznikCalegoJust =true;
-					//buttonReleased = true;
-					//System.out.print("released let go" + "\n");
-				}
+
+			if (listaNaboi.size() == 0 && wlaczPocisk) {
+
+
+				wektor = PlayScreen.getMousePosInGameWorld();
+				B.X = wektor.x + V_WIDTH / 2;
+				B.Y = wektor.y + V_HEIGHT / 2;
+				listaNaboi.add(0, new Naboj((int) spritePostaci.getX(), (int) spritePostaci.getY(), (int) B.X, (int) B.Y, 0, 0));
+				J.wynik++;
+				obliczStosunek(listaNaboi, (int) sila);
+				sila = 0;
+				wlaczPocisk = false;
 			}
-		}else
-		if (just && !Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-			//wlaczPocisk = true;
-			just = false;
-			masywnyWlacznikCalegoJust =true;
-			//buttonReleased = true;
-			//System.out.print("released wylacznikowy" + "\n");
-		}
 
 
+			if (listaNaboi.size() != 0) {
+				poruszanie(listaNaboi);
+				spritePocisku.setPosition(listaNaboi.get(0).x, listaNaboi.get(0).y);
+			}
+			if (usun(listaNaboi, tablicaPodklad)) {
+				spriteDziury.setPosition(listaNaboi.get(0).x - 75, listaNaboi.get(0).y - 75 + 10);
 
 
+				//zapiszMape(tablicaPodklad, V_HEIGHT,V_WIDTH);
+				//System.out.print(listaNaboi.get(0).x + "   " + listaNaboi.get(0).y);
 
-
-		if(listaNaboi.size()==0 && wlaczPocisk)
-		{
-
-
-			wektor = PlayScreen.getMousePosInGameWorld();
-			B.X = wektor.x+V_WIDTH/2;
-			B.Y = wektor.y+V_HEIGHT/2;
-			listaNaboi.add(0,new Naboj((int) spritePostaci.getX(),(int)spritePostaci.getY(),(int)B.X,(int)B.Y,0,0));
-			obliczStosunek(listaNaboi,(int)sila);
-			sila =0;
-			wlaczPocisk = false;
-		}
-
-
-		if(listaNaboi.size()!=0)
-		{
-			poruszanie(listaNaboi);
-			spritePocisku.setPosition(listaNaboi.get(0).x,listaNaboi.get(0).y);
-		}
-		if(usun(listaNaboi,tablicaPodklad))
-		{
-			spriteDziury.setPosition(listaNaboi.get(0).x-75,listaNaboi.get(0).y-75+10);
-
-
-			//zapiszMape(tablicaPodklad, V_HEIGHT,V_WIDTH);
-			//System.out.print(listaNaboi.get(0).x + "   " + listaNaboi.get(0).y);
-
-			miejscePoWybuchu(tablicaPodklad, V_HEIGHT, V_WIDTH, listaNaboi.get(0).x, listaNaboi.get(0).y);
-			listaNaboi.remove(0);
-			spritePocisku.setPosition(-20,-20);
-			licznikLeft = 0;
-		}
+				miejscePoWybuchu(tablicaPodklad, V_HEIGHT, V_WIDTH, listaNaboi.get(0).x, listaNaboi.get(0).y);
+				listaNaboi.remove(0);
+				spritePocisku.setPosition(-20, -20);
+				licznikLeft = 0;
+			}
 
 // ====================================================    KONIEC NABOI  ====================================================================
 
 
-		if(Gdx.input.isKeyJustPressed(Input.Keys.W) && wylacz) {
-			wlacz = true;
-			wylacz = false;
+			if (Gdx.input.isKeyJustPressed(Input.Keys.W) && wylacz) {
+				wlacz = true;
+				wylacz = false;
 
-		}
+			}
+
+
+			if (wlaczGrawitacje) {
+				spritePostaci.setY(grawitacjav2(spritePostaci.getY(), grawitacja, tablicaPodklad, spritePostaci.getX()));
+				//grawitacja--;
+			}
+
+
+			if (wlacz) {  // if który odpowiada za dodawanie przy skoku
+
+				spritePostaci.setY(skok(spritePostaci.getY(), wGore, V_HEIGHT));
+				wGore--;
+				wlaczGrawitacje = false;
+			}
+
+			if (wGore == 0) {
+				wlacz = false;
+
+				wGore = skok;
+				wlaczGrawitacje = true;
+			}
+			if (tablicaPodklad[(int) (spritePostaci.getY())][(int) spritePostaci.getX()] == 0 && tablicaPodklad[(int) (spritePostaci.getY()) - 1][(int) spritePostaci.getX()] == 1) {
+				wylacz = true;
+			}
+
+			//System.out.print(tablicaPodklad[(int)(spritePostaci.getY())][(int)spritePostaci.getX()]+"    " + tablicaPodklad[(int)(spritePostaci.getY()-1)][(int)spritePostaci.getX()]  + "    " + gravity +"\n");
+
+
+			if(smierc)
+			{
+				menuGry.wlacznikGry = 2;
+			}
 
 
 
-		if(wlaczGrawitacje)
+		}else if(menuGry.wlacznikGry == 0)
 		{
-			spritePostaci.setY(grawitacjav2(spritePostaci.getY(),grawitacja,tablicaPodklad, spritePostaci.getX()));
-			//grawitacja--;
-		}
+			texture = new Texture(Gdx.files.internal("menu.png"));
+			sprite = new Sprite(texture);
 
-
-
-
-		if(wlacz) {  // if który odpowiada za dodawanie przy skoku
-
-			spritePostaci.setY(skok(spritePostaci.getY(), wGore,V_HEIGHT));
-			wGore--;
-			wlaczGrawitacje = false;
-		}
-
-		if (wGore ==0) {
-			wlacz = false;
-
-			wGore = skok;
-			wlaczGrawitacje = true;
-		}
-		if(tablicaPodklad[(int)(spritePostaci.getY())][(int)spritePostaci.getX()] == 0 && tablicaPodklad[(int)(spritePostaci.getY())-1][(int)spritePostaci.getX()]==1)
+		}else if (menuGry.wlacznikGry == 2)
 		{
-			wylacz = true;
+			texture = new Texture(Gdx.files.internal("koniec.png"));
+			sprite = new Sprite(texture);
+			//watekMenu.stop();
+			if(jedenWatek) {
+				watek.start();
+				jedenWatek=false;
+			}
 		}
 
-		//System.out.print(tablicaPodklad[(int)(spritePostaci.getY())][(int)spritePostaci.getX()]+"    " + tablicaPodklad[(int)(spritePostaci.getY()-1)][(int)spritePostaci.getX()]  + "    " + gravity +"\n");
 
-
-
-
-
-
+		if(C.koniecAplikacji)
+		{
+			Gdx.app.exit();
+		}
 		batch.begin();
 
-		sprite.draw(batch);
-		spritePocisku.draw(batch);
-		spriteDziury.draw(batch);
-		spritePostaci.draw(batch);
-
+		if (menuGry.wlacznikGry == 1) {
+			sprite.draw(batch);
+			spritePocisku.draw(batch);
+			spriteDziury.draw(batch);
+			spritePostaci.draw(batch);
+		}else if (menuGry.wlacznikGry == 2)
+		{
+			spriteKoniec.draw(batch);
+		}else if (menuGry.wlacznikGry == 0)
+		{
+			spriteMenu.draw(batch);
+		}
 
 		batch.end();
-
-
-
 		super.render();
 	}
 }

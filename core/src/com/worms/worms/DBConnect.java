@@ -18,7 +18,7 @@ public class DBConnect {
             st = con.createStatement();
 
 
-            System.out.print("Chyba tak");
+            System.out.print("Polaczono z baza danych!"+ "\n");
         }catch(Exception e){
             System.out.print("Error: " + e + "\n");
         }
@@ -42,17 +42,43 @@ public class DBConnect {
         }
 
     }
-    public void registration(String Login, String Haslo, String Nick)
+    public boolean registration(String Login, String Haslo, String Nick)
     {
-        try {
-            String sql = "insert into Java "
-                    + " (Login, Haslo, Nick)"
-                    + "values ('"+Login+"', '"+Haslo+"', '"+Nick+"')";
-            st.executeUpdate(sql);
-        }catch(Exception e)
+        if(!Login.trim().equals("") && !Haslo.trim().equals("") && !Nick.trim().equals("")) {
+            try {
+                String query = "select * from Java";
+                rs = st.executeQuery(query);
+                boolean wlacz = true;
+                while (rs.next()) {
+                    String login = rs.getString("Login");
+                    if (Login.trim().equals(login)) {
+
+                        wlacz = false;
+                    }
+
+                }
+
+
+                if (wlacz) {
+                    String sql = "insert into Java "
+                            + " (Login, Haslo, Nick)"
+                            + "values ('" + Login + "', '" + Haslo + "', '" + Nick + "')";
+                    st.executeUpdate(sql);
+                    System.out.print("Nowy uzytkownik utwozony!" + "\n");
+                    return true;
+                } else {
+                    System.out.print("Jest juz taki uzytkownik!" + "\n");
+                }
+
+
+            } catch (Exception e) {
+                System.out.print("EX: " + e + "\n");
+            }
+        }else
         {
-            System.out.print("EX: "+ e+ "\n");
+            System.out.print("Wypelnij pola" + "\n");
         }
+        return false;
     }
     public boolean logowanie(String Login, String Haslo)
     {
@@ -63,16 +89,18 @@ public class DBConnect {
             while(rs.next())
             {
                 String login = rs.getString("Login");
-                if(login == Login) {
-                    System.out.print(login + " "  + "\n");
+                if(Login.trim().equals(login)) {
+
                     String haslo = rs.getString("Haslo");
-                    if (haslo == Haslo) {
-                        System.out.print(login + " " + haslo + " " + "\n");
+                    if (Haslo.trim().equals(haslo)) {
+                        System.out.print("Zalogowano: "+ login +"\n");
                         return true;
                     }
                 }
 
             }
+            System.out.print("Bledne dane logowania!"+ "\n");
+            return false;
         }catch(Exception e )
         {
             System.out.print("Cosi nie pyklo" + e + "\n");

@@ -52,13 +52,13 @@ public class Hud {
         timeLabel.setFontScale((float) 1.5);
 
 
-        table.add(wormsLabel).expandX().padTop(10);
-      //  table.add(worldLabel).expandX().padTop(10);
-        table.add(timeLabel).expandX().padTop(10);
-        table.row();
-        table.add(scoreLabel).expandX();
-      //  table.add(levelLabel).expandX();
-        table.add(countDownLabel).expandX();
+//        table.add(wormsLabel).expandX().padTop(10);
+//      //  table.add(worldLabel).expandX().padTop(10);
+//        table.add(timeLabel).expandX().padTop(10);
+//        table.row();
+//        table.add(scoreLabel).expandX();
+//      //  table.add(levelLabel).expandX();
+//        table.add(countDownLabel).expandX();
 
         stage.addActor(table);
 
