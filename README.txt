@@ -12,7 +12,6 @@ LIBGDX
 3.	Sockety
     o	multi klient serwer(17.05)
     o	szkody(26.04)
-    o	obrazenia
 4.	Watki
     o	rozdzielenie liczenia i wysylania na oddzielne watki (10.05)
 5.	Bazy danych
